@@ -10,7 +10,8 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
-
+  config:
+    import: configserver:http://localhost:9296
 server:
   port: 8082
 

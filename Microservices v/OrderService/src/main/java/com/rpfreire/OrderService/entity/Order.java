@@ -39,7 +39,7 @@ public class Order {
     @Column(name = "status")
     private String status;
     @Column(name = "ammount")
-    private Long ammount;
+    private Double ammount;
 
 
 }

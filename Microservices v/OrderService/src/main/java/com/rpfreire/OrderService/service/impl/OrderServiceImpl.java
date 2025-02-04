@@ -1,6 +1,7 @@
 package com.rpfreire.OrderService.service.impl;
 
 import com.rpfreire.OrderService.entity.Order;
+import com.rpfreire.OrderService.external.client.ProductService;
 import com.rpfreire.OrderService.repository.OrderRepository;
 import com.rpfreire.OrderService.service.OrderService;
 import com.rpfreire.OrderService.service.dto.req.OrderRequest;
@@ -16,6 +17,8 @@ import java.time.Instant;
 public class OrderServiceImpl implements OrderService {
     @Autowired
     private OrderRepository orderRepository;
+    @Autowired
+    private ProductService productService;
     @Override
     public OrderResponse placeOrder(OrderRequest orderRequest) {
         //TODO: Order entitty creation and save with status order CREATED
@@ -23,6 +26,9 @@ public class OrderServiceImpl implements OrderService {
         //TODO:  Payment service to processPayment Payment complete
         //TODO OR ELSE CANCELLED
         log.info("Placing order Request: {}", orderRequest);
+        productService.reduceQuantity(orderRequest.getProductId(), orderRequest.getQuantity());
+        log.info("Creating order with status CREATED");
+
         Order order=Order.builder()
                 .ammount(orderRequest.getAmmount())
                 .status("CREATED")

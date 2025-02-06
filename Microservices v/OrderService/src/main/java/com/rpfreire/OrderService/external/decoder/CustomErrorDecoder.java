@@ -18,16 +18,17 @@ public class CustomErrorDecoder implements ErrorDecoder {
         log.info("Error response: {}", response.request().url());
         log.info("Error response: {}", response.request().headers());
         try {
-            ErrorResponse errorResponse=objectMapper.readValue(response.body()
-                            .asInputStream(),
+            ErrorResponse errorResponse
+                    = objectMapper.readValue(response.body().asInputStream(),
                     ErrorResponse.class);
+            log.info("Error response: {}", errorResponse);
             return new CustomException(
-                    errorResponse.getErrorMessage(),
+                    errorResponse.getMessage(),
                     errorResponse.getErrorCode(),
                     response.status()
             );
         } catch (IOException e) {
-            throw new CustomException("Internal Server Error","INTERNAL_SERVER_ERROR",500);
+            throw new CustomException("InternDDDDal Server Error","INTERNAL_SERVER_ERROR",500);
         }
 
     }

@@ -4,6 +4,7 @@ import com.rpfreire.ProductService.service.ProductService;
 import com.rpfreire.ProductService.service.dto.req.ProductReq;
 import com.rpfreire.ProductService.service.dto.res.ProductRes;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -40,8 +41,7 @@ public class ProductController {
             @RequestParam Long quantity
     ){
         this.productService.reduceQuantity(id, quantity);
-        return ResponseEntity.ok().build();
-    }
+        return new ResponseEntity<>(HttpStatus.OK);    }
 
 
 }

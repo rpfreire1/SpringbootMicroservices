@@ -8,15 +8,14 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @ControllerAdvice
-public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
+public class RestResponseEntityExceptionHandler  extends ResponseEntityExceptionHandler  {
     @ExceptionHandler(CustomException.class)
-    public ResponseEntity<ErrorResponse> restResponseEntityExceptionHandler(CustomException exception){
+    public ResponseEntity<ErrorResponse> handleCustomException(CustomException exception){
 
-        return new  ResponseEntity<>(new ErrorResponse().builder()
-
-                .errorMessage(exception.getMessage()).
-                errorCode(exception.getErrorCode())
-
-                .build(),HttpStatus.valueOf(exception.getStatus()));
+        return new ResponseEntity<>(new ErrorResponse().builder()
+                .message(exception.getMessage())
+                .errorCode(exception.getErrorCode())
+                .build(),
+                HttpStatus.valueOf(exception.getStatus()));
     }
 }

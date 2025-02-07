@@ -1,9 +1,24 @@
+<<<<<<< HEAD
+=======
+Microservices v/Architecture/Architecture.vsdx
+Microservices v/ProductService/.idea
+Microservices v/ProductService/.mvn
+Microservices v/ProductService/.idea/**
+
+**/.mvn/
+**/.idea/
+**/target/
+>>>>>>> master
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+<<<<<<< HEAD
 
+=======
+.idea
+>>>>>>> master
 ### STS ###
 .apt_generated
 .classpath
@@ -31,3 +46,11 @@ build/
 
 ### VS Code ###
 .vscode/
+/.idea/
+<<<<<<< HEAD
+=======
+/.idea/
+/.mvn/
+/Microservices v/ProductService/.idea/
+/Microservices v/ProductService/.mvn/
+>>>>>>> master

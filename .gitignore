@@ -8,6 +8,9 @@ Microservices v/ProductService/.idea/**
 **/.mvn/
 **/.idea/
 **/target/
+.idea
+.mvn
+
 >>>>>>> master
 HELP.md
 target/

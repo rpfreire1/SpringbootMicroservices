@@ -5,9 +5,14 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/Microservices v/ConfigService/pom.xml" />
+        <option value="$PROJECT_DIR$/Microservices v/OrderService/pom.xml" />
+        <option value="$PROJECT_DIR$/Microservices v/ServiceRegistry/pom.xml" />
+        <option value="$PROJECT_DIR$/Microservices v/ProductService/pom.xml" />
+        <option value="$PROJECT_DIR$/Microservices v/PaymentService/pom.xml" />
       </list>
     </option>
     <option name="workspaceImportForciblyTurnedOn" value="true" />
   </component>
-  <component name="ProjectRootManager" version="2" project-jdk-name="temurin-23" project-jdk-type="JavaSDK" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_21" project-jdk-name="openjdk-21" project-jdk-type="JavaSDK" />
 </project>

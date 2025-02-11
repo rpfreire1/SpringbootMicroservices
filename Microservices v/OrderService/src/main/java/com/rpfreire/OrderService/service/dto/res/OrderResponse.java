@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.Instant;
 
 @Data
@@ -17,6 +19,18 @@ public class OrderResponse {
     private Instant orderDate;
     private String orderStatus;
     private Double amount;
+    private ProductDetails productDetails;
+
+    @Data
+    @Builder
+    public static class ProductDetails {
+        private Integer id;
+        private String name;
+        private BigDecimal price;
+        private Long quantity;
+
+
+    }
 
 
 }

@@ -9,9 +9,12 @@ import com.rpfreire.OrderService.repository.OrderRepository;
 import com.rpfreire.OrderService.service.OrderService;
 import com.rpfreire.OrderService.service.dto.req.OrderRequest;
 import com.rpfreire.OrderService.service.dto.res.OrderResponse;
+import com.rpfreire.OrderService.service.dto.res.ProductResponse;
 import lombok.extern.log4j.Log4j2;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.time.Instant;
 
@@ -24,6 +27,8 @@ public class OrderServiceImpl implements OrderService {
     private ProductService productService;
     @Autowired
     private PaymentService paymentService;
+    @Autowired
+    private RestTemplate restTemplate;
     @Override
     public OrderResponse placeOrder(OrderRequest orderRequest) {
         //TODO: Order entitty creation and save with status order CREATED
@@ -76,11 +81,23 @@ public class OrderServiceImpl implements OrderService {
     public OrderResponse getOrderDetails(Long orderId) {
         log.info("Fetching order details for order id: {}", orderId);
         Order order=orderRepository.findById(orderId).orElseThrow( ()-> new CustomException("Order not found","NOT_FOUND",404));
+       log.info("Fetching product details for order id: {}", orderId);
+       ProductResponse productRes=restTemplate.getForObject
+               ("http://ProductService/product/"+order.getProductId(), ProductResponse.class);
+
+        OrderResponse.ProductDetails productDetails=OrderResponse.ProductDetails.builder()
+                .id(productRes.getId())
+                .name(productRes.getName())
+                .price(productRes.getPrice())
+                .quantity(productRes.getQuantity())
+                .build();
+
         OrderResponse orderResponse=OrderResponse.builder()
                 .orderId(order.getId())
                 .orderStatus(order.getStatus())
                 .orderDate(order.getOrderDate())
                 .amount(order.getAmount())
+                .productDetails(productDetails)
                 .build();
         log.info("Order details fetched successfully: {}", orderResponse);
         return orderResponse;

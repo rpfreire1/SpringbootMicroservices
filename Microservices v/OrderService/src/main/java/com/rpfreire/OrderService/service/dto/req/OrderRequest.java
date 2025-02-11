@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 public class OrderRequest {
         private Long productId;
         private Long quantity;
-        private Double ammount;
+        private Double amount;
         private PaymentMode paymentMode;
 
 }

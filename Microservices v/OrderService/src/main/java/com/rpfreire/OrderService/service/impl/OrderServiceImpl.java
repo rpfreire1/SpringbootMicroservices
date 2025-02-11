@@ -1,7 +1,10 @@
 package com.rpfreire.OrderService.service.impl;
 
 import com.rpfreire.OrderService.entity.Order;
+import com.rpfreire.OrderService.exception.CustomException;
+import com.rpfreire.OrderService.external.client.PaymentService;
 import com.rpfreire.OrderService.external.client.ProductService;
+import com.rpfreire.OrderService.external.request.PaymentRequest;
 import com.rpfreire.OrderService.repository.OrderRepository;
 import com.rpfreire.OrderService.service.OrderService;
 import com.rpfreire.OrderService.service.dto.req.OrderRequest;
@@ -19,6 +22,8 @@ public class OrderServiceImpl implements OrderService {
     private OrderRepository orderRepository;
     @Autowired
     private ProductService productService;
+    @Autowired
+    private PaymentService paymentService;
     @Override
     public OrderResponse placeOrder(OrderRequest orderRequest) {
         //TODO: Order entitty creation and save with status order CREATED
@@ -30,20 +35,55 @@ public class OrderServiceImpl implements OrderService {
         log.info("Creating order with status CREATED");
 
         Order order=Order.builder()
-                .ammount(orderRequest.getAmmount())
+                .amount(orderRequest.getAmount())
                 .status("CREATED")
                 .productId(orderRequest.getProductId())
+                .amount(orderRequest.getAmount())
                 .orderDate(Instant.now())
                 .quantity(orderRequest.getQuantity())
                 .build();
-        orderRepository.save(order);
+
         log.info("Order placed successfully: {}", order);
 
+        log.info("Processing payment for order: {}", order);
+        PaymentRequest paymentRequest=PaymentRequest.builder()
+                .orderId(order.getId())
+                .paymentMethod(orderRequest.getPaymentMode())
+                .amount(order.getAmount())
+                .build();
+        String orderStatus=null;
+        try {
+            paymentService.doPayment(paymentRequest);
+            log.info("Payment processed successfully for order: {}", order);
+            orderStatus="COMPLETED";
+        }catch (Exception e){
+            log.error("Error while processing payment for order: {}", order);
+            log.error("Cancelling order: {}", order);
+            orderStatus="CANCELLED";
+        }
+        order.setStatus(orderStatus);
+        orderRepository.save(order);
+        log.info("Order placed successfully: {}", order);
         return OrderResponse.builder()
                 .orderId(order.getId())
-                .productId(order.getProductId())
-                .quantity(order.getQuantity())
-                .ammount(order.getAmmount())
+                .orderDate(order.getOrderDate())
+                .orderStatus(order.getStatus())
+                .amount(order.getAmount())
                 .build();
+    }
+
+    @Override
+    public OrderResponse getOrderDetails(Long orderId) {
+        log.info("Fetching order details for order id: {}", orderId);
+        Order order=orderRepository.findById(orderId).orElseThrow( ()-> new CustomException("Order not found","NOT_FOUND",404));
+        OrderResponse orderResponse=OrderResponse.builder()
+                .orderId(order.getId())
+                .orderStatus(order.getStatus())
+                .orderDate(order.getOrderDate())
+                .amount(order.getAmount())
+                .build();
+        log.info("Order details fetched successfully: {}", orderResponse);
+        return orderResponse;
+
     }
 }

@@ -43,6 +43,6 @@ public class  TransactionDetails {
     @Column
     private String paymentStatus;
     @Column
-    private Double ammount;
+    private Double amount;
 
 }

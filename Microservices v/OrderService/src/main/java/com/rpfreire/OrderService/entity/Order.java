@@ -38,8 +38,8 @@ public class Order {
     private Instant orderDate;
     @Column(name = "status")
     private String status;
-    @Column(name = "ammount")
-    private Double ammount;
+    @Column(name = "amount")
+    private Double amount;
 
 
 }

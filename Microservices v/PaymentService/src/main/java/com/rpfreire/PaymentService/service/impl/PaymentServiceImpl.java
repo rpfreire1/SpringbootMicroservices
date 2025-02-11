@@ -17,6 +17,7 @@ public class PaymentServiceImpl implements PaymentService {
     private TransactionDetailsRepository transactionDetailsRepository;
     @Override
     public Long doPayment(PaymentRequest paymentRequest) {
+        System.out.println("entro");
         log.info("Payment request received for order id: {}", paymentRequest);
         TransactionDetails transactionDetails = TransactionDetails.builder()
                 .paymentDate(Instant.now())
@@ -24,7 +25,7 @@ public class PaymentServiceImpl implements PaymentService {
                 .paymentStatus("SUCCESS")
                 .orderId(paymentRequest.getOrderId())
                 .referenceNumber(paymentRequest.getReferenceNumber())
-                .ammount(paymentRequest.getAmmount())
+                .amount(paymentRequest.getAmount())
                 .build();
         this.transactionDetailsRepository.save(transactionDetails);
          log.info("Payment done for order id: {}", transactionDetails);

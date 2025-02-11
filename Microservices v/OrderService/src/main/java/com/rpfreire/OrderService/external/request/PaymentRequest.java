@@ -1,4 +1,5 @@
-package com.rpfreire.OrderService.service.dto.res;
+package com.rpfreire.OrderService.external.request;
+
 
 import com.rpfreire.OrderService.enums.PaymentMode;
 import lombok.AllArgsConstructor;
@@ -6,17 +7,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.Instant;
-
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class OrderResponse {
+public class PaymentRequest {
     private Long orderId;
-    private Instant orderDate;
-    private String orderStatus;
-    private Double amount;
-
-
+     private Double amount;
+     private String referenceNumber;
+     private PaymentMode paymentMethod;
 }

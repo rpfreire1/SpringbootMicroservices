@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PaymentRequest {
     private Long orderId;
-     private Double ammount;
+     private Double amount;
      private String referenceNumber;
      private PaymentMode paymentMethod;
 }

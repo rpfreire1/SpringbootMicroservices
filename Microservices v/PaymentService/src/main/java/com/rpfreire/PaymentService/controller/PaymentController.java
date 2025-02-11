@@ -17,7 +17,6 @@ public class PaymentController {
     @PostMapping("/doPayment")
     public ResponseEntity<Long> doPayment(
             @RequestBody PaymentRequest paymentRequest
-
             ){
         return ResponseEntity.ok(this.paymentService.doPayment(paymentRequest));
     }

@@ -50,7 +50,7 @@ public class OrderServiceImpl implements OrderService {
                 .build();
 
         log.info("Order placed successfully: {}", order);
-
+        order=orderRepository.save(order);
         log.info("Processing payment for order: {}", order);
         PaymentRequest paymentRequest=PaymentRequest.builder()
                 .orderId(order.getId())
@@ -85,7 +85,7 @@ public class OrderServiceImpl implements OrderService {
        log.info("Fetching product details for order id: {}", orderId);
        ProductResponse productRes=restTemplate.getForObject
                ("http://ProductService/product/"+order.getProductId(), ProductResponse.class);
-log.info("Getting paymentInfo from the payment service");
+        log.info("Getting paymentInfo from the payment service");
         PaymentResponse paymentResponse=restTemplate.getForObject
                 ("http://PaymentService/payment/getPaymentDetails/"+order.getProductId(), PaymentResponse.class);
         OrderResponse.PaymentDetails paymentDetails=OrderResponse.PaymentDetails.builder()

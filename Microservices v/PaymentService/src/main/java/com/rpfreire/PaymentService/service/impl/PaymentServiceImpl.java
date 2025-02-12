@@ -1,7 +1,9 @@
 package com.rpfreire.PaymentService.service.impl;
 
 import com.rpfreire.PaymentService.dto.req.PaymentRequest;
+import com.rpfreire.PaymentService.dto.res.PaymentResponse;
 import com.rpfreire.PaymentService.entity.TransactionDetails;
+import com.rpfreire.PaymentService.enums.PaymentMode;
 import com.rpfreire.PaymentService.repository.TransactionDetailsRepository;
 import com.rpfreire.PaymentService.service.PaymentService;
 import lombok.extern.log4j.Log4j2;
@@ -30,5 +32,23 @@ public class PaymentServiceImpl implements PaymentService {
         this.transactionDetailsRepository.save(transactionDetails);
          log.info("Payment done for order id: {}", transactionDetails);
         return null;
+    }
+
+    @Override
+    public PaymentResponse getPaymentDetailsByOrderId(Long orderId) {
+        log.info("Fetching payment details for order id: {}", orderId);
+        TransactionDetails transactionDetails=this.transactionDetailsRepository.findByOrderId(orderId).orElseThrow(()->{
+            log.error("No payment details found for order id: {}", orderId);
+            return new RuntimeException("No payment details found for order id: "+orderId);
+        });
+        PaymentResponse paymentResponse=PaymentResponse.builder()
+                .amount(transactionDetails.getAmount())
+                .paymentDate(transactionDetails.getPaymentDate())
+                .paymentId(transactionDetails.getId())
+                .paymentMode(PaymentMode.valueOf(transactionDetails.getPaymentMethod()))
+                .status(transactionDetails.getPaymentStatus())
+                .orderId(transactionDetails.getOrderId())
+                .build();
+        return paymentResponse;
     }
 }

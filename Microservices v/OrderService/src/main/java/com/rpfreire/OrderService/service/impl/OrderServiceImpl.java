@@ -5,6 +5,7 @@ import com.rpfreire.OrderService.exception.CustomException;
 import com.rpfreire.OrderService.external.client.PaymentService;
 import com.rpfreire.OrderService.external.client.ProductService;
 import com.rpfreire.OrderService.external.request.PaymentRequest;
+import com.rpfreire.OrderService.external.response.PaymentResponse;
 import com.rpfreire.OrderService.repository.OrderRepository;
 import com.rpfreire.OrderService.service.OrderService;
 import com.rpfreire.OrderService.service.dto.req.OrderRequest;
@@ -84,6 +85,15 @@ public class OrderServiceImpl implements OrderService {
        log.info("Fetching product details for order id: {}", orderId);
        ProductResponse productRes=restTemplate.getForObject
                ("http://ProductService/product/"+order.getProductId(), ProductResponse.class);
+log.info("Getting paymentInfo from the payment service");
+        PaymentResponse paymentResponse=restTemplate.getForObject
+                ("http://PaymentService/payment/getPaymentDetails/"+order.getProductId(), PaymentResponse.class);
+        OrderResponse.PaymentDetails paymentDetails=OrderResponse.PaymentDetails.builder()
+                .paymentId(paymentResponse.getPaymentId())
+                .paymentMode(paymentResponse.getPaymentMode())
+                .paymentStatus(paymentResponse.getStatus())
+                .paymentDate(paymentResponse.getPaymentDate())
+                .build();
 
         OrderResponse.ProductDetails productDetails=OrderResponse.ProductDetails.builder()
                 .id(productRes.getId())

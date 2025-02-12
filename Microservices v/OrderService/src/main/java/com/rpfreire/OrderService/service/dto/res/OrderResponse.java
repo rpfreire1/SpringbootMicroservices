@@ -20,6 +20,7 @@ public class OrderResponse {
     private String orderStatus;
     private Double amount;
     private ProductDetails productDetails;
+    private PaymentDetails paymentDetails;
 
     @Data
     @Builder
@@ -28,6 +29,16 @@ public class OrderResponse {
         private String name;
         private BigDecimal price;
         private Long quantity;
+
+
+    }
+    @Data
+    @Builder
+    public static class PaymentDetails {
+        private Long paymentId;
+        private PaymentMode paymentMode;
+        private String paymentStatus;
+        private Instant paymentDate;
 
 
     }

@@ -10,6 +10,15 @@
         <module name="ConfigService" />
         <module name="ServiceRegistry" />
       </profile>
+      <profile name="Annotation profile for CloudGateway" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/unknown/lombok-unknown.jar" />
+        </processorPath>
+        <module name="CloudGateway" />
+      </profile>
       <profile name="Annotation profile for ProductService" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
@@ -23,7 +32,6 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="CloudGateway" target="21" />
       <module name="demo" target="21" />
     </bytecodeTargetLevel>
   </component>

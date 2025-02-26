@@ -10,15 +10,6 @@
         <module name="ConfigService" />
         <module name="ServiceRegistry" />
       </profile>
-      <profile name="Annotation profile for CloudGateway" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="false">
-          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/unknown/lombok-unknown.jar" />
-        </processorPath>
-        <module name="CloudGateway" />
-      </profile>
       <profile name="Annotation profile for OrderService" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
@@ -27,22 +18,60 @@
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.36/lombok-1.18.36.jar" />
         </processorPath>
         <module name="OrderService" />
-        <module name="ProductService" />
+      </profile>
+      <profile name="Annotation profile for PaymentService" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.36/lombok-1.18.36.jar" />
+        </processorPath>
         <module name="PaymentService" />
+      </profile>
+      <profile name="Annotation profile for ProductService" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.36/lombok-1.18.36.jar" />
+        </processorPath>
+        <module name="ProductService" />
+      </profile>
+      <profile name="Annotation profile for parent-project" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/unknown/lombok-unknown.jar" />
+        </processorPath>
+        <module name="CloudGateway" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="CloudGateway (1)" target="21" />
+      <module name="ConfigService (1)" target="21" />
       <module name="demo" target="21" />
+      <module name="OrderService (1)" target="21" />
+      <module name="parent-project (1)" target="1.5" />
+      <module name="PaymentService (1)" target="21" />
+      <module name="ProductService (1)" target="21" />
+      <module name="ServiceRegistry (1)" target="21" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="CloudGateway" options="-parameters" />
+      <module name="CloudGateway (1)" options="-parameters" />
       <module name="ConfigService" options="-parameters" />
+      <module name="ConfigService (1)" options="-parameters" />
       <module name="OrderService" options="-parameters" />
+      <module name="OrderService (1)" options="-parameters" />
       <module name="PaymentService" options="-parameters" />
+      <module name="PaymentService (1)" options="-parameters" />
       <module name="ProductService" options="-parameters" />
+      <module name="ProductService (1)" options="-parameters" />
       <module name="ServiceRegistry" options="-parameters" />
+      <module name="ServiceRegistry (1)" options="-parameters" />
       <module name="demo" options="-parameters" />
     </option>
   </component>

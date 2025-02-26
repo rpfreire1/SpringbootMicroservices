@@ -11,6 +11,7 @@
         <option value="$PROJECT_DIR$/Microservices v/ProductService/pom.xml" />
         <option value="$PROJECT_DIR$/Microservices v/PaymentService/pom.xml" />
         <option value="$PROJECT_DIR$/Microservices v/CloudGateway/pom.xml" />
+        <option value="$PROJECT_DIR$/Microservices v1/pom.xml" />
       </list>
     </option>
     <option name="workspaceImportForciblyTurnedOn" value="true" />

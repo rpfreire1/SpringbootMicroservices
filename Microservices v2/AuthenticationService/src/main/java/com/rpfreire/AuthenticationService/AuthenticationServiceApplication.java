@@ -4,6 +4,7 @@ import com.rpfreire.AuthenticationService.entity.PermissionEntity;
 import com.rpfreire.AuthenticationService.entity.RoleEntity;
 import com.rpfreire.AuthenticationService.entity.RoleEnum;
 import com.rpfreire.AuthenticationService.entity.UserEntity;
+import com.rpfreire.AuthenticationService.repository.UserEntityRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -20,7 +21,7 @@ public class AuthenticationServiceApplication {
 	}
 
 	@Bean
-	CommandLineRunner init() {
+	CommandLineRunner init(UserEntityRepository userEntityRepository) {
 		return args -> {
 			/* Create Permisions */
 			PermissionEntity createPermission = PermissionEntity
@@ -92,7 +93,7 @@ public class AuthenticationServiceApplication {
 		UserEntity userAdmin = UserEntity
 				.builder()
 				.username("admin")
-				.password("admin")
+				.password("$2a$10$5VyB0MoJjrAAh8Rul4Ypru2lCiFM3CKh4iuLz4nv6uEJ0.RQskT1a")
 				.isEnabled(true)
 				.isAccountNonExpired(true)
 				.isAccountNonLocked(true)
@@ -102,7 +103,7 @@ public class AuthenticationServiceApplication {
 		UserEntity userUser = UserEntity
 				.builder()
 				.username("user")
-				.password("user")
+				.password("$2a$10$5VyB0MoJjrAAh8Rul4Ypru2lCiFM3CKh4iuLz4nv6uEJ0.RQskT1a")
 				.isEnabled(true)
 				.isAccountNonExpired(true)
 				.isAccountNonLocked(true)
@@ -112,7 +113,7 @@ public class AuthenticationServiceApplication {
 		UserEntity userGuest = UserEntity
 				.builder()
 				.username("guest")
-				.password("guest")
+				.password("$2a$10$5VyB0MoJjrAAh8Rul4Ypru2lCiFM3CKh4iuLz4nv6uEJ0.RQskT1a")
 				.isEnabled(true)
 				.isAccountNonExpired(true)
 				.isAccountNonLocked(true)
@@ -122,7 +123,7 @@ public class AuthenticationServiceApplication {
 		UserEntity userDeveloper = UserEntity
 				.builder()
 				.username("developer")
-				.password("developer")
+				.password("$2a$10$5VyB0MoJjrAAh8Rul4Ypru2lCiFM3CKh4iuLz4nv6uEJ0.RQskT1a")
 				.isEnabled(true)
 				.isAccountNonExpired(true)
 				.isAccountNonLocked(true)
@@ -130,6 +131,7 @@ public class AuthenticationServiceApplication {
 				.roles(Set.of(roleDeveloper))
 				.build();
 
+			userEntityRepository.saveAll(Set.of(userAdmin,userUser,userGuest,userDeveloper));
 		};
 	}
 }

@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserDetailServiceImpl implements UserDetailsService {
@@ -21,31 +20,17 @@ public class UserDetailServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserEntity user = userEntityRepository.findByUsername(username).orElseThrow(
-                ()->{
-                    throw new UsernameNotFoundException("User not found");
-                }
-        );
-        List<SimpleGrantedAuthority>authorityList=new ArrayList<>();
-        user.getRoles().forEach(role->{
+        UserEntity user = userEntityRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        List<SimpleGrantedAuthority> authorityList = new ArrayList<>();
+        user.getRoles().forEach(role -> {
             authorityList.add(new SimpleGrantedAuthority("ROLE_".concat(role.getRoleEnum().name())));
         });
-        user.getRoles().stream().flatMap(
-                role -> role.getPermissions().stream())
-                .forEach(
-                        permission -> { authorityList.add(new SimpleGrantedAuthority(permission.getName()));
-                });
+        user.getRoles().stream().flatMap(role -> role.getPermissions().stream()).forEach(permission -> {
+            authorityList.add(new SimpleGrantedAuthority(permission.getName()));
+        });
 
-        return new User(
-                    user.getUsername(),
-                    user.getPassword(),
-                    user.getIsEnabled(),
-                    user.getIsAccountNonExpired(),
-                    user.getIsCredentialsNonExpired(),
-                    user.getIsAccountNonLocked(),
-                authorityList);
+        return new User(user.getUsername(), user.getPassword(), user.getIsEnabled(), user.getIsAccountNonExpired(), user.getIsCredentialsNonExpired(), user.getIsAccountNonLocked(), authorityList);
     }
-
 
 
 }

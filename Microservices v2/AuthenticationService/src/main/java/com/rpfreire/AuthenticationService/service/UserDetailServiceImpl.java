@@ -1,5 +1,8 @@
 package com.rpfreire.AuthenticationService.service;
 
+import com.rpfreire.AuthenticationService.dto.req.LogInReqDto;
+import com.rpfreire.AuthenticationService.dto.req.SignInReqDto;
+import com.rpfreire.AuthenticationService.dto.res.AuthResDto;
 import com.rpfreire.AuthenticationService.entity.UserEntity;
 import com.rpfreire.AuthenticationService.repository.UserEntityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +34,14 @@ public class UserDetailServiceImpl implements UserDetailsService {
 
         return new User(user.getUsername(), user.getPassword(), user.getIsEnabled(), user.getIsAccountNonExpired(), user.getIsCredentialsNonExpired(), user.getIsAccountNonLocked(), authorityList);
     }
+
+    public AuthResDto createUser(SignInReqDto user) {
+        return null;
+    }
+    public AuthResDto loginUser(LogInReqDto user) {
+        return null;
+    }
+
 
 
 }
